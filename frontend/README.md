@@ -35,6 +35,6 @@ cd ../backend; npm run build
 - Deploy `../backend/` as a Render Web Service with PostgreSQL.
 - Deploy this folder as a Vercel static site.
 - Configure `VITE_API_URL` in Vercel.
-- Configure `DATABASE_URL`, `WEB_ORIGIN`, `NODE_ENV=production`, `RESEND_API_KEY`, and `RESEND_FROM_EMAIL` in Render.
+- Configure `DATABASE_URL`, `WEB_ORIGIN`, and `NODE_ENV=production` in Render.
 
 Never commit environment files, PostgreSQL URLs, email-provider keys, or local model artifacts.

@@ -5,7 +5,7 @@ This repository is deliberately split into two deployable applications:
 | Folder | Purpose | Deploy to |
 | --- | --- | --- |
 | [`frontend/`](frontend) | React + Vite offline-first PWA | Vercel |
-| [`backend/`](backend) | Fastify API, OTP verification, device pairing, and sync | Render |
+| [`backend/`](backend) | Fastify API, device pairing, and sync | Render |
 
 ## Quick commands
 
