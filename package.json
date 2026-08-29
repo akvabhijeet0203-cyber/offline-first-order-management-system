@@ -1,0 +1,11 @@
+{
+  "name": "offline-first-order-management-system",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix Hackathon/devcraft-app run dev",
+    "build": "npm --prefix Hackathon/devcraft-app run build",
+    "test": "npm --prefix Hackathon/devcraft-app run test",
+    "lint": "npm --prefix Hackathon/devcraft-app run lint",
+    "server": "npm --prefix Hackathon/devcraft-app run server"
+  }
+}

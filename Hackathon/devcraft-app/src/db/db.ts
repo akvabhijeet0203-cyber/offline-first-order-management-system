@@ -1,20 +1,22 @@
-// src/db/db.ts
 import Dexie, { type Table } from 'dexie';
-import type { Order, Operation, ConflictRecord } from '../types/order';
+import type { Conflict, DeviceState, Operation, Order, OutboxEntry, SyncState } from '../types/domain';
 
-export class OrderDatabase extends Dexie {
-  declare orders: Table<Order, string>;
-  declare op_log: Table<Operation, string>;
-  declare conflicts: Table<ConflictRecord, string>;
+export class LocalOrderDatabase extends Dexie {
+  orders!: Table<Order, string>;
+  operations!: Table<Operation, string>;
+  outbox!: Table<OutboxEntry, string>;
+  syncState!: Table<SyncState, string>;
+  conflicts!: Table<Conflict, string>;
+  deviceState!: Table<DeviceState, string>;
 
   constructor() {
-    super('DevCraftOrderDB');
+    super('OfflineOrderDesk');
     this.version(1).stores({
-      orders: 'id, customer, due_date, status, is_paid, updated_at',
-      op_log: 'op_id, order_id, client_id, lamport_clock, timestamp',
-      conflicts: 'id, order_id, resolved'
+      orders: 'id, workspaceId, customer, dueDate, status, deleted, updatedAt',
+      operations: 'operationId, workspaceId, orderId, deviceId, lamportClock, createdAt',
+      outbox: 'operationId, status', syncState: 'workspaceId, status',
+      conflicts: 'id, workspaceId, orderId, resolved', deviceState: 'key'
     });
   }
 }
-
-export const db = new OrderDatabase();
+export const db = new LocalOrderDatabase();

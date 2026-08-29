@@ -1,27 +1,15 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
-  plugins: [
-    react(),
-    tailwindcss(),
-    VitePWA({
-      registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico'],
-      manifest: {
-        name: 'DevCraft Order Desk',
-        short_name: 'OrderDesk',
-        description: 'Offline-First Order Intake System',
-        theme_color: '#0f172a',
-        background_color: '#0f172a',
-        display: 'standalone',
-        icons: []
-      },
-      workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg}']
-      }
-    })
-  ]
+  plugins: [react(), VitePWA({
+    registerType: 'autoUpdate',
+    manifest: {
+      name: 'Offline Order Desk', short_name: 'Order Desk', display: 'standalone',
+      theme_color: '#173b36', background_color: '#f7f5ef',
+      icons: [{ src: '/icon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any' }]
+    },
+    workbox: { globPatterns: ['**/*.{js,css,html,svg,png,ico}'] }
+  })]
 });
