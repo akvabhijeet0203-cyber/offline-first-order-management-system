@@ -14,12 +14,12 @@ npm run dev
 Backend:
 
 ```powershell
-cd server
+cd ../backend
 npm install
 npm run dev
 ```
 
-Configure `server/.env` from `server/.env.example`. Run `server/sql/schema.sql` against PostgreSQL before starting the backend.
+Configure `../backend/.env` from `../backend/.env.example`. Run `../backend/sql/schema.sql` against PostgreSQL before starting the backend.
 
 ## Validation
 
@@ -27,13 +27,13 @@ Configure `server/.env` from `server/.env.example`. Run `server/sql/schema.sql` 
 npm run lint
 npm run test
 npm run build
-npm run server:build
+cd ../backend; npm run build
 ```
 
 ## Deployment
 
-- Deploy `server/` as a Render Web Service with PostgreSQL.
-- Deploy this directory as a Vercel static site.
+- Deploy `../backend/` as a Render Web Service with PostgreSQL.
+- Deploy this folder as a Vercel static site.
 - Configure `VITE_API_URL` in Vercel.
 - Configure `DATABASE_URL`, `WEB_ORIGIN`, `NODE_ENV=production`, `RESEND_API_KEY`, and `RESEND_FROM_EMAIL` in Render.
 
