@@ -1,6 +1,9 @@
 import crypto from 'node:crypto'; import Fastify from 'fastify'; import cookie from '@fastify/cookie'; import cors from '@fastify/cors'; import rateLimit from '@fastify/rate-limit'; import argon2 from 'argon2'; import { Pool } from 'pg'; import { z } from 'zod';
 const app = Fastify({ logger: true }), pool = new Pool({ connectionString: process.env.DATABASE_URL });
 await app.register(cookie); await app.register(cors, { origin: process.env.WEB_ORIGIN || 'http://localhost:5173', credentials: true }); await app.register(rateLimit, { max: 20, timeWindow: '1 minute' });
+app.get('health', async ()=>{
+    return {status:'ok'};
+});
 const id=()=>crypto.randomUUID(), hash=(v:string)=>crypto.createHash('sha256').update(v).digest('hex'), token=()=>crypto.randomBytes(24).toString('base64url'), code=()=>crypto.randomInt(100000,1000000).toString();
 async function me(r:any){const t=r.cookies.session;if(!t)return null;return (await pool.query('SELECT u.id,u.email FROM sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>now()',[hash(t)])).rows[0]||null;}
 async function spaces(userId:string){return (await pool.query('SELECT w.id,w.name,m.role FROM workspaces w JOIN workspace_members m ON m.workspace_id=w.id WHERE m.user_id=$1',[userId])).rows;}
