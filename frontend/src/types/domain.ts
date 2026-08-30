@@ -9,4 +9,4 @@ export interface OutboxEntry { operationId: string; operation: Operation; status
 export interface SyncState { workspaceId: string; cursor: number; status: SyncStatus; lastError?: string; updatedAt: string; }
 export interface Conflict { id: string; workspaceId: string; orderId: string; path: string; winner: Operation; loser: Operation; createdAt: string; resolved: boolean; }
 export interface DeviceState { key: 'current'; deviceId: string; deviceName: string; platform: string; clock: number; }
-export interface ParsedOrder { customer: string | null; items: OrderItem[]; dueDate: string | null; amount: number | null; needsClarification: boolean; }
+export interface ParsedOrder { customer: string | null; items: OrderItem[]; dueDate: string | null; amount: number | null; referencesPriorOrder: boolean; confidence: number; needsClarification: boolean; }
