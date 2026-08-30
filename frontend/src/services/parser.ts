@@ -1,5 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import type { ParsedOrder } from '../types/domain';
+const API = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 export function parseLocally(message: string): ParsedOrder {
   const text = message.trim(), lower = text.toLowerCase(); const quantity = Number(lower.match(/\b(\d+)\b/)?.[1] || 1);
   const amount = Number(lower.match(/(?:₹|rs\.?|rupees?)\s*(\d+)/i)?.[1]) || null;
@@ -9,6 +10,6 @@ export function parseLocally(message: string): ParsedOrder {
 }
 export async function parseOrder(message: string): Promise<ParsedOrder> {
   if (!navigator.onLine) return parseLocally(message);
-  try { const response = await fetch('/api/parse-order', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message }) }); if (response.ok) return await response.json() as ParsedOrder; } catch { /* local parser is intentionally independent */ }
+  try { const response = await fetch(`${API}/api/parse-order`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message }) }); if (response.ok) return await response.json() as ParsedOrder; } catch { /* local parser is intentionally independent */ }
   return parseLocally(message);
 }

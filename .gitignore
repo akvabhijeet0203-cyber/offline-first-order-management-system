@@ -4,3 +4,4 @@
 **/.env.*
 !.env.example
 Hackathon/
+model-service/model/

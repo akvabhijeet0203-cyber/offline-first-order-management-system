@@ -6,6 +6,7 @@ This repository is deliberately split into two deployable applications:
 | --- | --- | --- |
 | [`frontend/`](frontend) | React + Vite offline-first PWA | Vercel |
 | [`backend/`](backend) | Fastify API, device pairing, and sync | Render |
+| [`model-service/`](model-service) | Python service for the supplied Hinglish PEFT adapter | Render or a model-capable host |
 
 ## Quick commands
 
@@ -26,5 +27,6 @@ Each application has its own `package.json`, deployment configuration, and envir
 2. Deploy `backend/` to Render. Add its server-only environment variables from [`backend/.env.example`](backend/.env.example).
 3. Deploy `frontend/` to Vercel with `VITE_API_URL` set to the Render backend URL.
 4. Set the backend `WEB_ORIGIN` to the final Vercel URL.
+5. Deploy `model-service/` separately with Docker, then set backend `MODEL_SERVICE_URL` to that service's URL. The model service requires at least 8 GB RAM because it downloads the Qwen 1.5B base model on first startup.
 
 Never commit database URLs, provider keys, `.env` files, dependencies, builds, or local ML artifacts.
